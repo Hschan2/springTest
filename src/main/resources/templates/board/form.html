@@ -16,13 +16,23 @@
     <div class="container">
         <h2>게시판</h2>
         <form action="#" th:action="@{/board/form}" th:object="${board}" method="post">
+            <!--해당 ID를 가진 게시글 수정할 때, ID 값 넘기기-->
+            <input type="hidden" th:field="*{id}">
             <div class="form-floating" style="margin-top: 10px">
-                <input type="text" class="form-control" id="title" th:field="*{title}">
+                <input type="text" class="form-control"
+                       th:classappend="${#fields.hasErrors('title')} ? 'is-invalid'" id="title" th:field="*{title}">
                 <label for="title">제목</label>
+                <div class="invalid-feedback" th:if="${#fields.hasErrors('title')}" th:errors="*{title}">
+                    Title Error
+                </div>
             </div>
             <div class="form-floating" style="margin-top: 10px">
-                <textarea class="form-control" id="content" style="height: 100px" th:field="*{content}"></textarea>
+                <textarea class="form-control" id="content" style="height: 100px"
+                          th:classappend="${#fields.hasErrors('content')} ? 'is-invalid'" th:field="*{content}"></textarea>
                 <label for="content">Comments</label>
+                <div class="invalid-feedback" th:if="${#fields.hasErrors('content')}" th:errors="*{content}">
+                    Content Error
+                </div>
             </div>
             <div class="text-end" style="margin-top: 10px">
                 <button type="submit" class="btn btn-success">작성</button>
