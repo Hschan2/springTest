@@ -28,10 +28,11 @@ public class BoardController {
     private BoardValidator boardValidator;
 
     @GetMapping("/list")
-    public String list(Model model, @PageableDefault(size = 2) Pageable pageable) {
+    public String list(Model model, @PageableDefault(size = 2) Pageable pageable, @RequestParam(required = false, defaultValue = "") String searchText) {
 //        List<Board> boards = boardRepository.findAll(); // 데이터 베이스의 게시판 모두 가져오기
-        Page<Board> boards = boardRepository.findAll(pageable);
-
+//        Page<Board> boards = boardRepository.findAll(pageable); // 검색하기 컴포넌트 생성 전
+        Page<Board> boards = boardRepository.findByTitleContainingOrContentContaining(searchText, searchText, pageable); // 검색하기 컴포넌트 생성 후
+        
         int startPage = Math.max(1, boards.getPageable().getPageNumber() - 4);
         int endPage = Math.min(boards.getTotalPages(), boards.getPageable().getPageNumber() + 4);
 

@@ -21,14 +21,14 @@ public class BoardApiController {
 //    Add Search using title or Content
 //    Content Param => @RequestParam(required = false, defaultValue = ""
     @GetMapping("/boards")
-    List<Board> all(@RequestParam(required = false, defaultValue = "") String title) {
+    List<Board> all(@RequestParam(required = false, defaultValue = "") String title, @RequestParam(required = false, defaultValue = "") String content) {
         if (StringUtils.isEmpty(title)) {
 //        if (StringUtils.isEmpty(title) && StringUtils.isEmpty(content)) {
             return boardRepository.findAll();
         } else {
 //            return boardRepository.findByTitle(title);
-//            return boardRepository.findByTitleOrContent(title, content);
-            return boardRepository.findByTitleContaining(title);
+            return boardRepository.findByTitleOrContent(title, content);
+//            return boardRepository.findByTitleContaining(title);
         }
     }
 
