@@ -13,21 +13,21 @@
 
     <main class="form-signin">
         <form th:action="@{/account/login}" method="POST">
-            <img class="mb-4" src="https://getbootstrap.com/docs/5.1/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57">
+            <a th:href="@{/}"><img class="mb-4" src="https://getbootstrap.com/docs/5.1/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57"></a>
             <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
 
             <div class="alert alert-danger" role="alert" th:if="${param.error}">
                 아이디와 비밀번호가 틀립니다.
             </div>
             <div class="alert alert-dark" role="alert" th:if="${param.logout}">
-                로그아웃가 완료되었습니다.
+                로그아웃이 되었습니다.
             </div>
 
-            <div class="form-floating">
+            <div class="form-floating my-2">
                 <input type="username" class="form-control" id="username" name="username" placeholder="Username" required autofocus>
                 <label for="username">Username</label>
             </div>
-            <div class="form-floating">
+            <div class="form-floating my-2">
                 <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
                 <label for="password">Password</label>
             </div>
@@ -37,7 +37,8 @@
                 <input type="checkbox" value="remember-me"> Remember me
                 </label>
             </div> -->
-            <button class="w-100 btn btn-lg btn-primary" type="submit">로그인</button>
+            <button class="w-100 btn btn-lg btn-dark" type="submit">로그인</button>
+            <a class="w-100 btn btn-lg btn-dark my-2" th:href="@{/account/register}">회원가입</a>
         </form>
     </main>
       
