@@ -25,4 +25,7 @@ public class User {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id")) // Join될 상대 테이블
     private List<Role> roles = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user") // 양방향
+    private List<Board> boards = new ArrayList<>();
 }
