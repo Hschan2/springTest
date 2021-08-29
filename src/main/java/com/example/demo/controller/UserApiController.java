@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.model.Board;
 import com.example.demo.model.User;
 import com.example.demo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +34,16 @@ public class UserApiController {
     User replaceUser(@RequestBody User newUser, @PathVariable Long id) {
         return userRepository.findById(id)
                 .map(user -> {
-
+//                    User 클래스의 boards가 orphanRemoval = true일 경우, 갖고 있는 모든 board에 영향
+//                    user.setBoards(newUser.getBoards());
+//                    user의 board를 모두 삭제
+                    user.getBoards().clear();
+//                    지금 받은 데이터로 user의 board의 값을 변경
+//                    즉, 해당 user가 가지고 있는 board 데이터를 모두 삭제하고 해당 board만 추가
+                    user.getBoards().addAll(newUser.getBoards());
+                    for (Board board : user.getBoards()) {
+                        board.setUser(user);
+                    }
                     return userRepository.save(user);
                 })
                 .orElseGet(() -> {

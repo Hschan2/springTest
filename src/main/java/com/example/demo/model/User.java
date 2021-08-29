@@ -26,6 +26,9 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id")) // Join될 상대 테이블
     private List<Role> roles = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user") // 양방향
+//    OneToMany => 양방향
+//    cascade = CascadeType.ALL => User의 값이 변경되면 (삭제 포함) Join된 Board 값도 같이 정
+//    orphanRemoval = true => user의 모든 board에 영향, user가 삭제가 되면 user가 가지고 있는 board의 모든 데이터도 삭제
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Board> boards = new ArrayList<>();
 }
