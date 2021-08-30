@@ -29,6 +29,9 @@ public class User {
 //    OneToMany => 양방향
 //    cascade = CascadeType.ALL => User의 값이 변경되면 (삭제 포함) Join된 Board 값도 같이 정
 //    orphanRemoval = true => user의 모든 board에 영향, user가 삭제가 되면 user가 가지고 있는 board의 모든 데이터도 삭제
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+//    FetchType.EAGER => User가 불러와질 때, 해당 board 값들도 같이 가져온다. FetchType.LAZY => user의 board 값들을 사용할 때 가져온다.
+//    Many로 끝나는 것은 LAZY 사용 (필요없는 데이터 불러오는 것을 제거)
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<Board> boards = new ArrayList<>();
 }

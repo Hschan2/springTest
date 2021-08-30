@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.model.Board;
 import com.example.demo.model.User;
 import com.example.demo.repository.UserRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,6 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api")
+@Slf4j // Log 출력 가능
 public class UserApiController {
 
     @Autowired
@@ -17,7 +19,9 @@ public class UserApiController {
 
     @GetMapping("/users")
     List<User> all() {
-        return userRepository.findAll();
+        List<User> users = userRepository.findAll();
+        log.debug("getBoards().size() : {}", users.get(0).getBoards().size());
+        return users;
     }
 
     @PostMapping("/users")
