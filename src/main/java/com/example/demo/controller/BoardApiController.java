@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.model.Board;
 import com.example.demo.repository.BoardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 import org.thymeleaf.util.StringUtils;
 
@@ -61,6 +62,7 @@ public class BoardApiController {
     }
 
 //    Delete
+    @Secured("ROLE_ADMIN") // 외부에서 삭제하는 보안 오류 예방. 즉, ROLE_ADMIN 권한만 삭제 가능
     @DeleteMapping("/boards/{id}")
     void deleteBoard(@PathVariable Long id) {
         boardRepository.deleteById(id);

@@ -36,13 +36,29 @@
             </div>
             <div class="text-end" style="margin-top: 10px">
                 <button type="submit" class="btn btn-success">작성</button>
-                <a type="button" class="btn btn-success" th:href="@{/board/list}">취소</a>
+                <button type="button" class="btn btn-success" sec:authorize="hasRole('ROLE_ADMIN')" th:onclick="|deleteBoard(*{id})|">삭제</button>
+                <a class="btn btn-success" th:href="@{/board/list}">취소</a>
             </div>
         </form>
     </div>
 
+    <footer th:replace="fragment/common :: footer"></footer>
     <!-- Optional JavaScript; choose one of the two! -->
     <!-- Option 1: Bootstrap Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+    <script>
+        function deleteBoard(id) {
+            // Delete, POST, /api/boards/{id}
+            $.ajax({
+                url: `/api/boards/${id}`,
+                type: 'DELETE',
+                success: function(result) {
+                    alert("삭제되었습니다.");
+                    window.location.href = '/board/list';
+                }
+            });
+        }
+    </script>
 </body>
 </html>
