@@ -17,10 +17,24 @@ public class UserApiController {
     @Autowired
     private UserRepository userRepository;
 
+//    Custom Query 적용
     @GetMapping("/users")
-    List<User> all() {
-        List<User> users = userRepository.findAll();
-        log.debug("getBoards().size() : {}", users.get(0).getBoards().size());
+    List<User> all(@RequestParam(required = false) String method, @RequestParam(required = false) String text) {
+//        List<User> users = userRepository.findAll();
+//        log.debug("getBoards().size() : {}", users.get(0).getBoards().size());
+        List<User> users = null;
+        if ("query".equals(method)) {
+            users = userRepository.findByUsernameQuery(text);
+        } else if ("nativeQuery".equals(method)) {
+            users = userRepository.findByUsernameNativeQuery(text);
+        } else if ("querydsl".equals(method)) {
+//            QCustomer customer = QCustomer.customer;
+//            Predicate predicate = user.firstname.equalsignoreCase("dave")
+//                    .and(user.lastname.startsWithIgnoreCase("mathews"));
+//            userRepository.findAll(predicate);
+        } else {
+            users = userRepository.findAll();
+        }
         return users;
     }
 
