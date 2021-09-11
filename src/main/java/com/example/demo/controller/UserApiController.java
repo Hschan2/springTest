@@ -28,10 +28,7 @@ public class UserApiController {
         } else if ("nativeQuery".equals(method)) {
             users = userRepository.findByUsernameNativeQuery(text);
         } else if ("querydsl".equals(method)) {
-//            QCustomer customer = QCustomer.customer;
-//            Predicate predicate = user.firstname.equalsignoreCase("dave")
-//                    .and(user.lastname.startsWithIgnoreCase("mathews"));
-//            userRepository.findAll(predicate);
+
         } else {
             users = userRepository.findAll();
         }
