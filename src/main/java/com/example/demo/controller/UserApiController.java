@@ -1,13 +1,13 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.Board;
+import com.example.demo.model.QUser;
 import com.example.demo.model.User;
 import com.example.demo.repository.UserRepository;
+import com.querydsl.core.types.Predicate;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api")
@@ -19,16 +19,28 @@ public class UserApiController {
 
 //    Custom Query 적용
     @GetMapping("/users")
-    List<User> all(@RequestParam(required = false) String method, @RequestParam(required = false) String text) {
+    Iterable<User> all(@RequestParam(required = false) String method, @RequestParam(required = false) String text) {
 //        List<User> users = userRepository.findAll();
 //        log.debug("getBoards().size() : {}", users.get(0).getBoards().size());
-        List<User> users = null;
+
+//        Iterable은 List과 상속 연결
+        Iterable<User> users = null;
         if ("query".equals(method)) {
             users = userRepository.findByUsernameQuery(text);
         } else if ("nativeQuery".equals(method)) {
             users = userRepository.findByUsernameNativeQuery(text);
         } else if ("querydsl".equals(method)) {
+//            Querying with Querydsl JPA - 테이블 데이터를 사용할 수 있다.
+            QUser user = QUser.user;
+//            조건절 (contatins -> 검색)
+//            .and, .or 등 계속 조건 작성 가능
+            Predicate predicate = user.username.contains(text);
 
+//            BooleanExpression을 사용해서 조건을 성립했을 경우 b에 다시 값을 넣기
+//            BooleanExpression b = user.username.contains(text);
+//            if (true) b = b.and(user.username.eq("HI"));
+//            Type - Iterable
+            users = userRepository.findAll(predicate);
         } else {
             users = userRepository.findAll();
         }
