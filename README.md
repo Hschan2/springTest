@@ -1,11 +1,10 @@
 # Spring Boot로 웹 출시까지
-====================
 
 * 해당 Repository 삭제 예정
   * EverythingAboutJava Repository로 이동 예정
 
 ## 개발 단계
-1. 환경 설정하기
+1. 프로젝트 환경 설정하기
 2. Thymeleaf를 이용한 화면 작성하기
 3. Thymeleaf의 기본 익히기
 4. Thymeleaf를 이용하여 레이아웃 만들기
@@ -21,4 +20,4 @@
 14. 권한에 맞는 API 호출하기
 15. JPA를 이용하여 Custom Query 만들기 (진행중)
 
-## [강의 링크](https://www.youtube.com/watch?v=8zjLIsqt8so&list=PLPtc9qD1979DG675XufGs0-gBeb2mrona&index=35)
+### [강의 링크](https://www.youtube.com/watch?v=8zjLIsqt8so&list=PLPtc9qD1979DG675XufGs0-gBeb2mrona&index=35)
