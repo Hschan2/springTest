@@ -41,6 +41,8 @@ public class UserApiController {
 //            if (true) b = b.and(user.username.eq("HI"));
 //            Type - Iterable
             users = userRepository.findAll(predicate);
+        } else if ("querydslCustom".equals(method)) {
+            users = userRepository.findByUsernameCustom(text);
         } else {
             users = userRepository.findAll();
         }
