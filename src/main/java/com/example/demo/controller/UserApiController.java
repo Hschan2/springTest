@@ -43,6 +43,8 @@ public class UserApiController {
             users = userRepository.findAll(predicate);
         } else if ("querydslCustom".equals(method)) {
             users = userRepository.findByUsernameCustom(text);
+        } else if ("jdbc".equals(method)) {
+            users = userRepository.findByUsernameJdbc(text);
         } else {
             users = userRepository.findAll();
         }
